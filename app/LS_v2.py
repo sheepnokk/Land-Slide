@@ -21,6 +21,7 @@ asc = ""
 
 new_date = ""
 path = "./app"
+path2 = "app/"
 
 for file in os.listdir(path):
     if file.endswith(".tif"):
@@ -182,7 +183,7 @@ dst_ds = None
 print("\n\n\n\n")
 
 
-# ------ new data folder --------
+# # ------ new data folder --------
 def new_folder(fname):
     new_date = fname
     if not os.path.exists(fname):
@@ -205,7 +206,9 @@ print("date", new_date)
 print("\n\n\n\n")
 # -------------------------------------
 
-current_directory = os.getcwd()
+roor_directory = os.getcwd()
+current_directory = f"{roor_directory}/{new_date}/"
+print("current_directory", current_directory)
 
 raintif = ""
 rainresize = ""
@@ -227,17 +230,19 @@ for root, dirs, files in os.walk("."):
             result = "" + name
 
 
-f_name = current_directory + "/" + new_date
+# f_name = current_directory
 
 unused_file = [raintif, rainresize, rainreclass, rain1]
 
 for file in unused_file:
     if file:
-        if os.path.exists(current_directory + "/" + file):
-            os.remove(current_directory + "/" + file)
+        if os.path.exists(current_directory  + file):
+            os.remove(current_directory + file)
 
-shutil.move(current_directory + "/" + result, f_name + "/" + result)
-shutil.move(current_directory + "/" + asc, f_name + "/" + asc)
+
+# /work-land-slide/app/20221223/
+shutil.move(f"{roor_directory}/{result}", current_directory + result)
+shutil.move(f"{roor_directory}/{asc}", current_directory + asc)
 
 # Get end time
 end_time = time.time()
